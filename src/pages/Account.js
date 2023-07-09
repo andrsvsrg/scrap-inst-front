@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Account(props) {
+function Account() {
   return (
     <div>
       Account page
