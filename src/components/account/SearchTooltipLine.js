@@ -46,5 +46,6 @@ function SearchTooltipLine({ setSearchTerm }) {
 
       <Box  marginLeft={1}>{renderTooltipContent()}</Box>
     </Box>
+  )
 }
 export default SearchTooltipLine
