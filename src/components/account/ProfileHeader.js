@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Avatar, Box, Typography } from '@mui/material'
 import VerifiedIcon from '@mui/icons-material/Verified';
 import data from '../../exampleData.json'
-import { useParams } from 'react-router-dom'
+
 function ProfileHeader() {
   // const [data, setData] = useState()
   // const { profileName}  = useParams()
@@ -32,7 +32,7 @@ function ProfileHeader() {
   const user = data.user
   return (
     <>
-      {data && <Box sx={{ display:'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', marginBottom: { xs: 4, sm: 6 }}}>
+      {data && <Box sx={{ display:'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', marginLeft: { xs: 2, sm: 3}, marginBottom: { xs: 4, sm: 6 }}}>
           <Avatar src={new URL(user.profilePicUrl).href} sx={{ width: 80, height: 80, marginRight: { xs: 0, sm: 16 } }} />
           <Box>
             <Typography variant="h5" sx={{ fontWeight: 'bold' }}>

@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 
 import Header from '../components/Header'
 import ProfileHeader from '../components/account/ProfileHeader'
 import ProfileInfo from '../components/account/ProfileInfo'
 import PostsList from '../components/account/PostsList'
+import SearchInput from '../components/account/SearchInput'
+import SearchTooltipLine from '../components/account/SearchTooltipLine'
 
 import { Box } from '@mui/material';
-import { useParams } from 'react-router-dom'
+
 
  function Account() {
+
 
   //  const { profileName}  = useParams()
   //  console.log(profileName)
@@ -24,11 +27,14 @@ import { useParams } from 'react-router-dom'
   //    getInfo()
   //  }, [])
 
+  const [searchTerm, setSearchTerm] = useState('') // later get from redux
 
   return (
   <>
     <Header/>
-      <Box sx={{ maxWidth: 900, margin: '0 auto', pt: 16, pl: 3, pr: 3 }}>
+      <Box sx={{ maxWidth: 900, margin: '0 auto', pt: 5, pl: 3, pr: 3 }}>
+        <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+        <SearchTooltipLine searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
         <ProfileHeader/>
         <ProfileInfo/>
         <PostsList/>

@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <Account/>
   },
   {
-    path: "/post",
+    path: "/post/:shortcode",
     element: <Post/>
   },
 ])

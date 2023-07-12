@@ -4,10 +4,9 @@ import data from '../../exampleData.json'
 import { useParams } from 'react-router-dom'
 function ProfileInfo() {
   const { profileName}  = useParams()
-  console.log(profileName)
   const user = data.user
-  const posts = data.posts
-  console.log(posts)
+ console.log(profileName)
+
   return (
     <>
       <Box
