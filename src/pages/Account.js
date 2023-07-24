@@ -8,6 +8,7 @@ import SearchInput from '../components/account/SearchInput'
 import SearchTooltipLine from '../components/account/SearchTooltipLine'
 
 import { Box } from '@mui/material';
+import DownloadSection from '../components/account/DownloadSection'
 
 
  function Account() {
@@ -33,10 +34,10 @@ import { Box } from '@mui/material';
   <>
     <Header/>
       <Box sx={{ maxWidth: 900, margin: '0 auto', pt: 5, pl: 3, pr: 3 }}>
-        <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
-        <SearchTooltipLine searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+        <DownloadSection/>
+        {/*<SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>*/}
+        {/*<SearchTooltipLine searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>*/}
         <ProfileHeader/>
-        <ProfileInfo/>
         <PostsList/>
       </Box>
 

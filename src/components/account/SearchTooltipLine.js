@@ -17,7 +17,8 @@ function SearchTooltipLine({ setSearchTerm }) {
             Example format for post:
             <Typography variant="body2" component="strong" sx={{fontWeight: '700', fontSize: '1.1rem', cursor:'pointer'}}    onClick={(e) =>setSearch(e)}> CukhF05q3fk </Typography>,
             <Typography variant="body2" component="strong" sx={{fontWeight: '700', fontSize: '1.1rem', cursor:'pointer'}}    onClick={(e) =>setSearch(e)}> CultEylOIWd </Typography>,
-            <Typography variant="body2" component="strong" sx={{fontWeight: '700', fontSize: '1.1rem', cursor:'pointer'}}    onClick={(e) =>setSearch(e)}> CuAKoyGtB_Z </Typography>          </Typography>
+            <Typography variant="body2" component="strong" sx={{fontWeight: '700', fontSize: '1.1rem', cursor:'pointer'}}    onClick={(e) =>setSearch(e)}> CuAKoyGtB_Z </Typography>
+          </Typography>
         </>
       );
     }

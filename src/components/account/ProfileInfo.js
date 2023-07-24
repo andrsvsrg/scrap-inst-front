@@ -9,27 +9,19 @@ function ProfileInfo() {
 
   return (
     <>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          marginBottom: { xs: 5, sm: 7 },
-          flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: { xs: 'center', sm: 'flex-start' },
-        }}
-      >
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h6">posts</Typography>
-          <Typography variant="subtitle1">{user.totalPosts || 'todo'}</Typography>
-        </Box>
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h6">followers</Typography>
-          <Typography variant="subtitle1">{user.followed}</Typography>
-        </Box>
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h6">following</Typography>
-          <Typography variant="subtitle1">{user.follow}</Typography>
-        </Box>
+      <Box sx={{ display: 'flex', width: '100%' }}>
+          <Typography sx={{display:'block', margin: '8px 15px 8px 0px'}}
+                      variant="h6">
+            posts: {user.totalPosts || 'todo'}
+          </Typography>
+          <Typography sx={{display:'block', margin: '8px 15px'}}
+                      variant="h6">
+            followers: {user.followed}
+          </Typography>
+          <Typography sx={{display:'block', margin: '8px 15px'}}
+                      variant="h6">
+            following: {user.follow}
+          </Typography>
 
       </Box>
     </>
