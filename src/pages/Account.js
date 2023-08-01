@@ -4,46 +4,32 @@ import Header from '../components/Header'
 import ProfileHeader from '../components/account/ProfileHeader'
 import ProfileInfo from '../components/account/ProfileInfo'
 import PostsList from '../components/account/PostsList'
-import SearchInput from '../components/account/SearchInput'
-import SearchTooltipLine from '../components/account/SearchTooltipLine'
+import SearchInput from '../components/account/downloadSection/SearchInput'
+import SearchTooltipLine from '../components/account/downloadSection/SearchTooltipLine'
 
 import { Box } from '@mui/material';
-import DownloadSection from '../components/account/DownloadSection'
+import DownloadSection from '../components/account/downloadSection'
+import {useGetUserQuery} from '../redux'
+import { useParams } from 'react-router-dom'
+import AccountWithData from '../components/account/AccountWithData'
 
 
  function Account() {
+   const { profileName}  = useParams()
 
 
-  //  const { profileName}  = useParams()
-  //  console.log(profileName)
-  // // const
-  //  async function getInfo() {
-  //   await fetch(`http://localhost:3001/api/user/${profileName}`)
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  //     .catch((e) => console.log(e))
-  //  }
-  //
-  //  useEffect(() => {
-  //    getInfo()
-  //  }, [])
+   if(!profileName) {
+     return (
+       <>
+         <Header/>
+         <Box sx={{ maxWidth: 900, margin: '0 auto', pt: 5, pl: 3, pr: 3 }}>
+           <DownloadSection profileName={profileName}/>
+         </Box>
+       </>
+     );
+   }
 
-  const [searchTerm, setSearchTerm] = useState('') // later get from redux
-
-  return (
-  <>
-    <Header/>
-      <Box sx={{ maxWidth: 900, margin: '0 auto', pt: 5, pl: 3, pr: 3 }}>
-        <DownloadSection/>
-        {/*<SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>*/}
-        {/*<SearchTooltipLine searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>*/}
-        <ProfileHeader/>
-        <PostsList/>
-      </Box>
-
-  </>
-
-  )
+   return <AccountWithData profileName={profileName}/>
 }
 
 export default Account

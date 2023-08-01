@@ -2,10 +2,8 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import data from '../../exampleData.json'
 import { useParams } from 'react-router-dom'
-function ProfileInfo() {
-  const { profileName}  = useParams()
-  const user = data.user
- console.log(profileName)
+function ProfileInfo({user}) {
+
 
   return (
     <>

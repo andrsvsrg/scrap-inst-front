@@ -1,15 +1,17 @@
 import { InputBase, IconButton, Paper, Select, MenuItem } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {  useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
+import { setSearchType, setSearchTerm } from '../../../redux'
 
-const SearchInput = ({searchTerm, setSearchTerm}) => {
 
-
-  const [searchType, setSearchType] = useState('username');
+const SearchInput = () => {
+  const { searchType, searchTerm } = useSelector((state) => state.search)
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
+console.log(searchType)
+  console.log(searchTerm)
   const handleSearch = (event) => {
     event.preventDefault();
     if(!searchTerm) {
@@ -25,8 +27,14 @@ const SearchInput = ({searchTerm, setSearchTerm}) => {
   };
 
   const handleSearchTypeChange = (event) => {
-    setSearchType(event.target.value);
+      dispatch(setSearchType(event.target.value))
   };
+
+  const handleSearchTerm = (event) => {
+    if(event.target.value) {
+      dispatch(setSearchTerm(event.target.value))
+    }
+  }
 
 
   return (
@@ -56,13 +64,13 @@ const SearchInput = ({searchTerm, setSearchTerm}) => {
           paddingLeft: '8px',
         }}
       >
-        <MenuItem value="username">Find user</MenuItem>
-        <MenuItem value="post">Find post</MenuItem>
+        <MenuItem value="username">User search</MenuItem>
+        <MenuItem value="post">Post search</MenuItem>
       </Select>
       <InputBase
         sx={{ marginLeft: '8px', flex: 1 ,  padding: '0px'}}
         value={searchTerm}
-        onChange={(e) => setSearchTerm( e.target.value)}
+        onChange={(e) => handleSearchTerm(e)}
         placeholder="Enter username"
         inputProps={{ 'aria-label': 'search' }}
       />

@@ -4,9 +4,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import data from '../../exampleData.json'
 import PostSmall from './PostSmall'
 
-function PostsList() {
+function PostsList({posts}) {
 
-  const posts = data.posts
+
   return (
     <>
       <Grid container spacing={2}>

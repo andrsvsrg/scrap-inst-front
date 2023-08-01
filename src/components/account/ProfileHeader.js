@@ -4,33 +4,9 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import data from '../../exampleData.json'
 import ProfileInfo from './ProfileInfo'
 
-function ProfileHeader() {
-  // const [data, setData] = useState()
-  // const { profileName}  = useParams()
-  // console.log(profileName)
-  // // const
-  // async function getInfo() {
-  //   await fetch(`http://localhost:3001/api/user/${profileName}`)
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setData(data)
-  //       console.log(data)
-  //     })
-  //     .catch((e) => console.log(e))
-  // }
-  //
-  // useEffect(() => {
-  //   getInfo()
-  // }, [])
-  // let user
-  // if(data) {
-  //   user = data.user
-  //
-  //   const url = new URL(user.profilePicUrl).href
-  //   console.log(url)
-  // }
+function ProfileHeader({user}) {
 
-  const user = data.user
+
   return (
     <>
       {data && <Box width='100%' sx={{ display:'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', paddingLeft: { xs: 2, sm: 3}, marginBottom: { xs: 4, sm: 6 }}}>
@@ -43,7 +19,7 @@ function ProfileHeader() {
               </Box>
             </Typography>
             <Typography variant="subtitle1" sx={{ color: 'gray' ,  display: {xs: 'flex'}, flexDirection: 'column',  justifyContent:{ xs:'center', sm: 'start'}}}>
-              <ProfileInfo/>
+              <ProfileInfo user={user}/>
               <Typography variant='span'>Biography: <Typography variant='span' sx={{ fontWeight: 'bold' }}>{user.biography ? user.biography  : ''}</Typography></Typography>
               <Typography variant='span'>Category name: <Typography variant='span' sx={{ fontWeight: 'bold' }}>{user.categoryName ?  user.categoryName  : ''}</Typography></Typography>
               <Typography variant='span'>Links: <Typography variant='span' sx={{ fontWeight: 'bold' }}>{user.bioLinks.length  ?  user.bioLinks.join(', ')  : ''}</Typography></Typography>
