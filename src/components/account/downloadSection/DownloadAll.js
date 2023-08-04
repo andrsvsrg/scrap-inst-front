@@ -1,19 +1,43 @@
 import React, { useState } from 'react'
 import { Box, Button, Checkbox, Grid, Typography } from '@mui/material'
 import { useDispatch, useSelector  } from 'react-redux'
-import { toggleDownloadOnlySelectedFields } from '../../../redux'
+import { toggleDownloadOnlySelectedFields, useDownloadJsonMutation } from '../../../redux'
+import { downloadData } from '../../../utils/helpers'
 
 
 function DownloadAll({profileName}) {
-  const downloadOnlySelectedFields = useSelector(state => state.jsonFields.accountPage.downloadOnlySelectedFields)
+  const [downloadFile, {isLoading, error}] = useDownloadJsonMutation()
+  const { downloadOnlySelectedFields,numbersOfPosts, userInstId , selectedUserFields, selectedPostFields} = useSelector(state => state.jsonFields.accountPage)
   const dispatch = useDispatch()
 
   const handleDownloadOnlySelectedFieldsChange = (event) => {
     dispatch(toggleDownloadOnlySelectedFields(event.target.checked))
   };
 
-  const handleDownloadAll = () => {
+  const handleDownloadAll = async () => {
     console.log('Скачать все данные пользователя');
+    if(!userInstId) {
+      return
+    }
+    let body
+    if(downloadOnlySelectedFields) {
+      body = {
+        userField: JSON.stringify(selectedUserFields),
+        postFields:JSON.stringify(selectedPostFields),
+        countPosts: numbersOfPosts ,
+        userInstId,
+      }
+    } else {
+      body = {
+        userField: JSON.stringify([]), // all
+        postFields:JSON.stringify([]), // all
+        countPosts: numbersOfPosts ,
+        userInstId,
+      }
+    }
+
+    const result = await downloadFile(body)  // todo is loading & error
+    downloadData(result.data, userInstId)
   };
 
   return (

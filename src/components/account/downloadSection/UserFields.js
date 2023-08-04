@@ -1,23 +1,29 @@
 import React, { useEffect, useState } from 'react'
+
+
+
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material'
-import { setUserField, useGetUserQuery } from '../../../redux'
+import { setUserField, setUserInstId, useDownloadJsonMutation, useGetUserQuery } from '../../../redux'
 import { useDispatch, useSelector } from 'react-redux'
+import { downloadData } from '../../../utils/helpers'
 
 function UserFields({profileName}) {
   const [userFields, setUserFields] = useState([])
   const dispatch = useDispatch()
-  const selectedUserFields = useSelector(state => state.jsonFields.accountPage.selectedUserFields)
+  const { selectedUserFields, userInstId } = useSelector(state => state.jsonFields.accountPage)
 
   const {data } = useGetUserQuery(profileName)
 
- console.log(selectedUserFields)
+  const [downloadFile, {isLoading, error}] = useDownloadJsonMutation()
 
   useEffect(() => {
     if(data) {
-      const userInfoKeys = Object.keys(data?.user)  // todo send to redux - jsonSlice
-                  .filter((key) => key !== '_id' && key !== '__v')
-      console.log(userInfoKeys)
+      const userInfoKeys = Object.keys(data?.user)
+                  .filter((key) => key !== '_id' && key !== '__v' && key !== 'profilePicUrlD')
       setUserFields(userInfoKeys)
+      if(data?.user?.userInstId) {
+        dispatch(setUserInstId(data?.user?.userInstId))
+      }
     }
   }, [data])
 
@@ -27,9 +33,17 @@ function UserFields({profileName}) {
     dispatch(setUserField(event.target.value))
   };
 
-  const handleUserDownload = () => {
-    console.log('Скачать информацию о пользователе');
-    console.log('Выбранные поля:', selectedUserFields);
+
+  const handleUserDownload = async() => {
+    if(!userInstId) {
+      return
+    }
+    const body = {
+      userField: JSON.stringify(selectedUserFields),
+      userInstId,
+    }
+    const result = await downloadFile(body)
+    downloadData(result.data, userInstId)
   };
 
   return (

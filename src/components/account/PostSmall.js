@@ -36,7 +36,7 @@ function PostSmall({ post }) {
             <CardMedia
               component="img"
               height="100%"
-              image={new URL(post.displayUrl).href}
+              image={new URL(post.displayUrlD).href}
               alt=""
             />
 

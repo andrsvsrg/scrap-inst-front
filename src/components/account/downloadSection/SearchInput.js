@@ -10,8 +10,6 @@ const SearchInput = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-console.log(searchType)
-  console.log(searchTerm)
   const handleSearch = (event) => {
     event.preventDefault();
     if(!searchTerm) {

@@ -8,7 +8,14 @@ export const instagramApi = createApi({
       query: (username) => `user/${username}`,
       keepUnusedDataFor: 10 * 60 * 1000,
     }),
+    downloadJson: build.mutation({
+      query: (requestData) => ({
+        url: 'user/download',
+        method: 'POST',
+        body:requestData
+      })
+    })
   })
 })
 
-export const { useGetUserQuery } = instagramApi
+export const { useGetUserQuery, useDownloadJsonMutation } = instagramApi

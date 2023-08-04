@@ -7,6 +7,7 @@ const initialState  = {
     selectedPostFields: [],
     downloadOnlySelectedFields: false,
     numbersOfPosts: 0,
+    userInstId: ''
   },
   postPage: {
 
@@ -28,10 +29,17 @@ const jsonSlice = createSlice({
     },
     toggleDownloadOnlySelectedFields: (state) => {
       state.accountPage.downloadOnlySelectedFields = !state.accountPage.downloadOnlySelectedFields
+    },
+    setUserInstId: (state, action) => {
+      state.accountPage.userInstId = action.payload
+    },
+    clearAllStates: (state) => {    // change for all
+      state.accountPage = initialState.accountPage
     }
+
   },
 })
 
 
-export const {setNumberOfPosts, setUserField, setPostField, toggleDownloadOnlySelectedFields  } = jsonSlice.actions;
+export const {clearAllStates, setNumberOfPosts, setUserInstId,setUserField, setPostField, toggleDownloadOnlySelectedFields  } = jsonSlice.actions;
 export default jsonSlice;

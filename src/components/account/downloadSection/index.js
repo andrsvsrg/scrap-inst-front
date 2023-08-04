@@ -22,12 +22,6 @@ import { useGetUserQuery } from '../../../redux'
 const DownloadSection = ({profileName}) => {
 
 
-  const [userFields, setUserFields] = useState([]);
-  const [numPosts, setNumPosts] = useState(12);
-  const [postFields, setPostFields] = useState([]);
-
-  const [downloadOnlySelectedFields, setDownloadOnlySelectedFields] = useState(false);
-
 
   return (
     <Paper elevation={3} sx={{ padding: '20px', marginBottom: '20px', minWidth: '400px' }}>

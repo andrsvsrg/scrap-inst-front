@@ -10,7 +10,7 @@ function ProfileHeader({user}) {
   return (
     <>
       {data && <Box width='100%' sx={{ display:'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', paddingLeft: { xs: 2, sm: 3}, marginBottom: { xs: 4, sm: 6 }}}>
-          <Avatar src={new URL(user.profilePicUrl).href} sx={{ width: 80, height: 80, marginRight: { xs: 0, sm: 16 } }} />
+          <Avatar src={new URL(user.profilePicUrlD).href} sx={{ width: 80, height: 80, marginRight: { xs: 0, sm: 16 } }} />
           <Box>
             <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
               <Box sx={{display: 'flex', alignItems: 'center' }}>
