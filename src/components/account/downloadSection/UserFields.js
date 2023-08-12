@@ -3,15 +3,14 @@ import React, { useEffect, useState } from 'react'
 
 
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material'
-import { setUserField, setUserInstId, useDownloadJsonMutation, useGetUserQuery } from '../../../redux'
+import { setAllUserField, setUserField, setUserInstId, useDownloadJsonMutation, useGetUserQuery } from '../../../redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { downloadData } from '../../../utils/helpers'
 
 function UserFields({profileName}) {
   const [userFields, setUserFields] = useState([])
   const dispatch = useDispatch()
-  const { selectedUserFields, userInstId } = useSelector(state => state.jsonFields.accountPage)
-
+  const { body, body: { userInstId, selectedUserFields } } = useSelector(state => state.jsonFields.accountPage);
   const {data } = useGetUserQuery(profileName)
 
   const [downloadFile, {isLoading, error}] = useDownloadJsonMutation()
@@ -21,6 +20,7 @@ function UserFields({profileName}) {
       const userInfoKeys = Object.keys(data?.user)
                   .filter((key) => key !== '_id' && key !== '__v' && key !== 'profilePicUrlD')
       setUserFields(userInfoKeys)
+      dispatch(setAllUserField(userInfoKeys))
       if(data?.user?.userInstId) {
         dispatch(setUserInstId(data?.user?.userInstId))
       }
@@ -35,14 +35,16 @@ function UserFields({profileName}) {
 
 
   const handleUserDownload = async() => {
-    if(!userInstId) {
+    if(!userInstId || selectedUserFields.length === 0) {
+      alert('Please select user fields')
       return
     }
-    const body = {
-      userField: JSON.stringify(selectedUserFields),
-      userInstId,
+    const reqBody = {
+      ...body,
+      numbersOfPosts: 0,
+      selectedPostFields: []
     }
-    const result = await downloadFile(body)
+    const result = await downloadFile(reqBody)
     downloadData(result.data, userInstId)
   };
 

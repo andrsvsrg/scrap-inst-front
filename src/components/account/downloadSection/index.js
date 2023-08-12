@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Box,
-  Button, Checkbox,
-  FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
   Paper,
-  Select,
-  TextField,
   Typography
 } from '@mui/material'
 import SearchInput from './SearchInput'
@@ -16,7 +9,6 @@ import SearchTooltipLine from './SearchTooltipLine'
 import UserFields from './UserFields'
 import PostsFields from './PostsFields'
 import DownloadAll from './DownloadAll'
-import { useGetUserQuery } from '../../../redux'
 
 
 const DownloadSection = ({profileName}) => {

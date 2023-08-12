@@ -3,11 +3,15 @@ import {createSlice} from '@reduxjs/toolkit'
 
 const initialState  = {
   accountPage:{
-    selectedUserFields: [],
-    selectedPostFields: [],
+    allUserFields:[],
+    allPostFields: [],
+    body: {
+      selectedUserFields: [],
+      selectedPostFields: [],
+      numbersOfPosts: 12,
+      userInstId: ''
+    },
     downloadOnlySelectedFields: false,
-    numbersOfPosts: 0,
-    userInstId: ''
   },
   postPage: {
 
@@ -18,22 +22,28 @@ const jsonSlice = createSlice({
   name: 'json',
   initialState,
   reducers: {
+    setAllUserField: (state, action) => {
+      state.accountPage.allUserFields = action.payload
+    },
+    setAllPostField: (state, action) => {
+      state.accountPage.allPostFields = action.payload
+    },
     setUserField: (state, action) => {
-      state.accountPage.selectedUserFields = action.payload
+      state.accountPage.body.selectedUserFields = action.payload
     },
     setPostField: (state, action) => {
-      state.accountPage.selectedPostFields = action.payload
+      state.accountPage.body.selectedPostFields = action.payload
     },
     setNumberOfPosts: (state, action) => {
-      state.accountPage.numbersOfPosts = action.payload
+      state.accountPage.body.numbersOfPosts = action.payload
     },
     toggleDownloadOnlySelectedFields: (state) => {
       state.accountPage.downloadOnlySelectedFields = !state.accountPage.downloadOnlySelectedFields
     },
     setUserInstId: (state, action) => {
-      state.accountPage.userInstId = action.payload
+      state.accountPage.body.userInstId = action.payload
     },
-    clearAllStates: (state) => {    // change for all
+    clearAllStates: (state) => {    // change for posts to
       state.accountPage = initialState.accountPage
     }
 
@@ -41,5 +51,5 @@ const jsonSlice = createSlice({
 })
 
 
-export const {clearAllStates, setNumberOfPosts, setUserInstId,setUserField, setPostField, toggleDownloadOnlySelectedFields  } = jsonSlice.actions;
+export const {clearAllStates,setAllUserField,setAllPostField,  setNumberOfPosts, setUserInstId,setUserField, setPostField, toggleDownloadOnlySelectedFields  } = jsonSlice.actions;
 export default jsonSlice;

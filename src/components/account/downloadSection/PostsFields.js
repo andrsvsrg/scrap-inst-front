@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
-import { useGetUserQuery, setPostField, setNumberOfPosts, useDownloadJsonMutation } from '../../../redux'
+import {
+  useGetUserQuery,
+  setPostField,
+  setNumberOfPosts,
+  useDownloadJsonMutation,
+  setAllPostField
+} from '../../../redux'
 import { useDispatch, useSelector } from 'react-redux'
 import { downloadData } from '../../../utils/helpers'
 
 function PostsFields({profileName}) {
   const {data } = useGetUserQuery(profileName)
   const [downloadFile, {isLoading, error}] = useDownloadJsonMutation()
-  const { selectedPostFields, numbersOfPosts, userInstId } = useSelector(state => state.jsonFields.accountPage)
+  const {body, body: { selectedPostFields, numbersOfPosts, userInstId }} = useSelector(state => state.jsonFields.accountPage)
   const dispatch = useDispatch()
   const [postFields, setPostFields] = useState([]);
 
@@ -17,6 +23,7 @@ function PostsFields({profileName}) {
       const postsInfoKeys = Object.keys(data?.posts[0])
                       .filter((key) => key !== '_id' && key !== '__v' && key !== 'displayUrlD')
       setPostFields(postsInfoKeys)
+      dispatch(setAllPostField(postsInfoKeys))
     }
   }, [data])
 
@@ -32,15 +39,16 @@ function PostsFields({profileName}) {
   };
 
   const handlePostsDownload = async() => {
-    if(!userInstId) {
+    if(!userInstId || selectedPostFields.length === 0 || numbersOfPosts === 0) {
+      alert('Please select post fields and number of post')
       return
     }
-    const body = {
-      postFields:JSON.stringify(selectedPostFields),
-      countPosts: numbersOfPosts ,
-      userInstId,
+
+    const reqBody = {
+      ...body,
+      selectedUserFields:[]
     }
-    const result = await downloadFile(body)  // todo is loading & error
+    const result = await downloadFile(reqBody)  // todo is loading & error
     downloadData(result.data, userInstId)
   };
 

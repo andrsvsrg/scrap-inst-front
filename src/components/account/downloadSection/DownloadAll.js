@@ -7,7 +7,7 @@ import { downloadData } from '../../../utils/helpers'
 
 function DownloadAll({profileName}) {
   const [downloadFile, {isLoading, error}] = useDownloadJsonMutation()
-  const { downloadOnlySelectedFields,numbersOfPosts, userInstId , selectedUserFields, selectedPostFields} = useSelector(state => state.jsonFields.accountPage)
+  const { downloadOnlySelectedFields, allUserFields, allPostFields, body, body: { userInstId, numbersOfPosts,  selectedPostFields, selectedUserFields }} = useSelector(state => state.jsonFields.accountPage)
   const dispatch = useDispatch()
 
   const handleDownloadOnlySelectedFieldsChange = (event) => {
@@ -15,28 +15,27 @@ function DownloadAll({profileName}) {
   };
 
   const handleDownloadAll = async () => {
-    console.log('Скачать все данные пользователя');
     if(!userInstId) {
       return
     }
-    let body
-    if(downloadOnlySelectedFields) {
-      body = {
-        userField: JSON.stringify(selectedUserFields),
-        postFields:JSON.stringify(selectedPostFields),
-        countPosts: numbersOfPosts ,
-        userInstId,
-      }
-    } else {
-      body = {
-        userField: JSON.stringify([]), // all
-        postFields:JSON.stringify([]), // all
-        countPosts: numbersOfPosts ,
-        userInstId,
-      }
+
+    if(downloadOnlySelectedFields && selectedPostFields.length === 0 &&
+      selectedUserFields.length === 0) {
+      alert('Not selected eny data for download')
+      return
     }
 
-    const result = await downloadFile(body)  // todo is loading & error
+    let reqBody = {...body}
+    if(!downloadOnlySelectedFields) {
+      reqBody = {
+        ...reqBody,
+        selectedUserFields:allUserFields,
+        selectedPostFields: allPostFields,
+        numbersOfPosts: 12,
+      }
+    }
+    console.log(reqBody)
+    const result = await downloadFile(reqBody)  // todo is loading & error
     downloadData(result.data, userInstId)
   };
 
